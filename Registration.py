@@ -57,7 +57,7 @@ def login():
 
         else:
             return "Invalid Login"
-    return render_template("login.html")
+    return render_template("login.html", error=error)
 
 
 @auth.route('/logout')
