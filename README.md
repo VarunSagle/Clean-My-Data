@@ -1,57 +1,161 @@
-# CleanMyData – Data Cleaning & Visualization Dashboard
 
-CleanMyData is a full-stack web application built with Python, Flask, Pandas, Matplotlib, Seaborn, and MySQL that simplifies the process of cleaning, analyzing, and visualizing CSV datasets. It provides an intuitive dashboard where users can upload datasets, perform common data preprocessing tasks, generate insightful visualizations, and download the cleaned data—all without writing code.
+📊 CleanMyData – Data Cleaning & Visualization Dashboard
 
-The application includes a secure user authentication system, activity logging, and database integration, making it suitable for learning real-world data processing workflows and full-stack Python development.
+1. Project Description:- CleanMyData is a Flask-based web application that helps users clean, transform, analyze, and visualize CSV datasets through an interactive dashboard. Users can upload datasets, perform common data-cleaning operations, generate charts, and download the processed data. The application also includes user authentication and activity logging using MySQL.
 
-✨ Features
-🔐 Secure User Authentication (Register, Login & Logout)
-📂 Upload CSV datasets
-🧹 Data cleaning operations:
-Fill missing values (Custom Value, Mean, Numeric Value)
-Remove missing records
-Drop columns
-Rename columns
-Convert data types
-Detect duplicate records
-📊 Dataset exploration:
-Dataset Information
-Descriptive Statistics
-Head & Tail Preview
-Unique Values
-Value Counts
-📈 GroupBy analysis with multiple visualization options:
-Bar Chart
-Line Chart
-Area Chart
-Pie Chart
-Histogram
-Scatter Plot
-Box Plot
-Heatmap
-Count Plot
-Stacked Bar Chart
-🔍 Filter datasets using custom conditions
+2. Features:
 
-🛠️ Technologies Used
-Backend
+✔ User Registration & Login
+✔ Secure Password Hashing
+✔ CSV File Upload
+✔ Missing Value Handling
+✔ Fill Missing Values
+    - Custom Value
+    - Mean
+    - Numeric Value
+✔ Drop Rows
+✔ Drop Columns
+✔ Rename Columns
+✔ Convert Data Types
+✔ Filter Dataset
+✔ View Dataset Summary
+✔ Detect Duplicate Records
+✔ Head & Tail Preview
+✔ Dataset Information
+✔ Descriptive Statistics
+✔ Unique Values
+✔ Value Counts
+✔ GroupBy Operations
+✔ Data Visualization
+✔ Download Cleaned CSV
+✔ Activity Logs using MySQL
+
+
+3. Technologies Used:
+
 Python
 Flask
 Pandas
-MySQL
-Flask-Bcrypt
-Data Visualization
 Matplotlib
 Seaborn
-Frontend
-HTML5
-CSS3
+MySQL
+HTML
+CSS
 Bootstrap
 Jinja2
-Tools
-Git
-GitHub
-MySQL Workbench
-💾 Download cleaned datasets as CSV
-📝 Activity Logs stored in MySQL
-🎨 Responsive and user-friendly dashboard
+
+
+4. Project Structure
+
+CleanMyData/
+│
+├── app.py
+├── Registration.py
+├── templates/
+├── static/
+├── requirements.txt
+├── README.md
+└── database.sql
+
+5. Installation
+
+1. Clone the repository
+
+git clone <repo>
+
+2. Create virtual environment
+
+python -m venv venv
+
+3. Activate environment
+
+4. Install requirements
+
+pip install -r requirements.txt
+
+5. Create MySQL database
+
+6. Import database.sql
+
+7. Run
+
+python app.py
+
+
+--------------  if you not understand this the you read the following instraction  ----------------
+
+First create the 'ENVIROMENT' :
+HOW TO CREATE THE env OR venv FOLDER IT MEANS 'ENVIROMENT'
+
+python -m venv venv
+OR (if python not working):
+
+py -m venv venv
+This creates a folder called venv (your isolated environment).
+
+For Windows:
+Inside the Terminal erite this command : venv\Scripts\activate
+
+
+If successful, you will see:
+
+(venv) C:\Users\YourName\flask_project>
+
+That (venv) means environment is active ✅
+
+
+Now Install the Libraries :
+
+pip install Flask
+pip install Flask-Bcrypt
+pip install pandas
+pip install matplotlib
+pip install seaborn
+pip install mysql-connector-python
+
+
+## The system cannot find the file specified. ##
+
+solution :-  python -m pip install pandas
+
+In this solution you can write the ' matplotlib ' or any other librery what you want to install
+
+
+Now RUN the app:  python app.py
+
+
+
+5. Database Setup
+
+-----Make sure services is running-----
+
+CREATE DATABASE cleanmydata;
+
+Then
+
+Import database.sql into MySQL.
+
+In mySQL database write this query
+create database cleanmydata;
+use cleanmydata;
+
+CREATE TABLE uploaded_files(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    action_name varchar(100),
+    file_name VARCHAR(255),
+    total_rows INT,
+    total_columns INT,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS register (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(150) NOT NULL UNIQUE,
+    passwords VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE users(id int AUTO_INCREMENT primary key, username varchar(100), email varchar(200) unique, password varchar(255) );
+
+select * from users;
+
+6. You can see the Logs in your browser
+http://127.0.0.1:5000/logs
