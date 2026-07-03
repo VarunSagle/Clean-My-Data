@@ -85,7 +85,7 @@ python app.py
 --------------  if you not understand this the you read the following instraction  ----------------
 
 First create the 'ENVIROMENT' :
-HOW TO CREATE THE env OR venv FOLDER IT MEANS 'ENVIROMENT'
+HOW TO CREATE THE env OR venv FOLDER 
 
 python -m venv venv
 OR (if python not working):
@@ -94,7 +94,7 @@ py -m venv venv
 This creates a folder called venv (your isolated environment).
 
 For Windows:
-Inside the Terminal erite this command : venv\Scripts\activate
+Inside the Terminal enter this  : venv\Scripts\activate
 
 
 If successful, you will see:
