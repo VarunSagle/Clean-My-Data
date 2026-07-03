@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 Advanced Data Statistics & Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            color: #333; 
+            margin-top: 10px;
+            margin-bottom: 5px; 
+        }
+        h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+        /* Custom styled Back Nav Link Button */
+        .back-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #333;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s ease;
+            margin-bottom: 20px;
+        }
+        .back-btn:hover {
+            background: #555;
+        }
+        .table-section {
+            margin-top: 30px;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: white; 
+        }
+        th, td { 
+            border: 1px solid #ccc; 
+            padding: 10px; 
+            text-align: left; 
+            font-size: 14px; 
+        }
+        th { 
+            background: #333; 
+            color: white; 
+            position: sticky; 
+            top: 0; 
+        }
+        tr:nth-child(even) { 
+            background-color: #f9f9f9; 
+        }
+        .no-data {
+            color: #777;
+            font-style: italic;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- Clean, properly enclosed navigation component routing home -->
+    <a href="{{ url_for('fill_data') }}" class="back-btn">◄ Back to Dashboard</a>
+    
+    <h2>📊 Comprehensive Data Analytics Summary</h2>
+
+    <!-- Section 1: Duplicate Values Matrix View -->
+    <div class="table-section">
+        <h3>📋 Duplicate Values Matrix</h3>
+        {% if duplicates_table %}
+            <div class="table-container">
+                {{ duplicates_table | safe }}
+            </div>
+        {% else %}
+            <p class="no-data">No duplicate data entries or active files identified.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section 2: Core Data Descriptions -->
+    <div class="table-section">
+        <h3>📋 Statistical Descriptions</h3>
+        {% if describe_table %}
+            <div class="table-container">
+                {{ describe_table | safe }}
+            </div>
+        {% else %}
+            <p class="no-data">No statistical summary profile generated.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section 3: Data Structural Information Output -->
+    <div class="table-section">
+        <h3>📋 Structural Characteristics & Object Types</h3>
+        {% if info_table %}
+            <div class="table-container">
+                {{ info_table | safe }}
+            </div>
+        {% else %}
+            <p class="no-data">Structural dataset outline missing.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section 4: Head point Snapshot Preview -->
+    <div class="table-section">
+        <h3>📋 Head Records (First Rows)</h3>
+        {% if head_table %}
+            <div class="table-container">
+                {{ head_table | safe }}
+            </div>
+        {% else %}
+            <p class="no-data">File header record points empty.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section 5: Tail snapshot preview tracking -->
+    <div class="table-section">
+        <h3>📋 Tail Records (Last Rows)</h3>
+        {% if tail_table %}
+            <div class="table-container">
+                {{ tail_table | safe }}
+            </div>
+        {% else %}
+            <p class="no-data">File trailing record points empty.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

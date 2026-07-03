@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊Clean My Data </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h1 { color: #333; margin-bottom: 5px; }
+        h3 {
+            color: #555;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .upload-section {
+            background: #fdfdfd;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        /* HORIZONTAL ROWS ENGINE */
+        .toolkit-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .horizontal-row-card {
+            border: 1px solid #ddd;
+            padding: 15px 20px;
+            border-radius: 8px;
+            background: #fafafa;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.02);
+        }
+        .horizontal-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            width: 100%;
+        }
+        .form-title {
+            min-width: 180px;
+            margin: 0;
+            font-size: 15px;
+            color: #333;
+            font-weight: bold;
+            padding-bottom: 5px;
+        }
+        .form-field-group {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+        }
+        .form-action-group {
+            min-width: 150px;
+        }
+        
+        label {
+            font-size: 11px;
+            font-weight: bold;
+            color: #666;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+        input[type="text"], input[type="number"], input[type="file"], select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 36px;
+            font-size: 13px;
+        }
+        button, .btn-download {
+            width: 100%;
+            height: 36px;
+            padding: 0 15px;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: background 0.2s ease;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        button:hover { background: #555; }
+        .btn-upload { background: #2980b9; }
+        .btn-upload:hover { background: #1f6391; }
+        .btn-danger { background: #a30000; }
+        .btn-danger:hover { background: #c20000; }
+        .btn-purple { background: #8e44ad; }
+        .btn-purple:hover { background: #7d3c98; }
+        .btn-graph { background: #27ae60; }
+        .btn-graph:hover { background: #219653; }
+        .btn-download { background: #2980b9; margin-top: 15px; width: auto; display: inline-flex; }
+
+        .table-section {
+            margin-top: 40px;
+            border-top: 2px solid #eee;
+            padding-top: 20px;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { border: 1px solid #ccc; padding: 10px; text-align: left; font-size: 14px; }
+        th { background: #333; color: white; position: sticky; top: 0; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        
+        .output-container {
+            margin-top: 30px;
+            text-align: center;
+            background: #fafafa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .chart-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- 1. File Uploader Box -->
+     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:25px;">
+
+    <div>
+        <h1 style="margin:0;">📊 Live Data Cleaning Dashboard</h1>
+        <h3 style="margin-top:8px;">
+            Welcome, {{ username }} 👋
+        </h3>
+    </div>
+
+    <a href="{{ url_for('auth.logout') }}"
+       style="
+            background:#c0392b;
+            color:white;
+            text-decoration:none;
+            padding:10px 22px;
+            border-radius:6px;
+            font-weight:bold;
+       ">
+       🚪 Logout
+    </a>
+
+</div>
+    <div class="upload-section">
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <label style="font-size:15px;">Upload Fresh CSV Dataset:</label>
+            <input type="file" name="File" required>
+            <button type="submit" class="btn-upload">Import Data</button>
+        </form>
+    </div>
+<!-- 2. Master Live Preview Area -->
+<!-- Put this alert display section right above your "Live Preview" table -->
+<div class="table-section">
+    
+    <!-- Dynamic Error Alert Box -->
+    {% if errors %}
+        <div style="background: #fde8e8; border-left: 5px solid #e74c3c; color: #c0392b; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-weight: bold; font-size: 14px;">
+            ⚠️ {{ errors }}
+        </div>
+    {% endif %}
+
+    {% if master_table %}
+        <h3>📋 Current Master Dataset Preview (Live Updates)</h3>
+        <div class="table-container">
+            {{ master_table | safe }}
+        </div>
+    {% endif %}
+
+    {% if Filter_Data %}
+        <h3>📋 Current Master Dataset Preview (Live Updates)</h3>
+        <div class="table-container">
+            {{ Filter_Data | safe }}
+        </div>
+    {% endif %}
+
+    <!-- Display the output graph if it exists
+    {% if graph_url %}
+        <h3>Output Result:</h3>
+        <img src="{{ graph_url }}" alt="Generated Bar Chart">
+    {% endif %} -->
+</div>
+
+</div>
+    
+    <div class="toolkit-grid">
+        <!-- Card 1: Dataset Overview & Inspection -->
+<br>
+
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🔍 Dataset Overview & Inspection</h4>
+                <label>duplicated Values:</label>
+                <input type="text" name="duplicat_ed" placeholder="Find duplicat's" required>
+                <label>Head Values:</label>
+                <input type="number" name="head" placeholder="Find Head" required>
+                <label>Tail Values:</label>
+                <input type="number" name="tail" placeholder="Find Tail" required>
+                <button type="submit" style="margin-top: 20px;">Calculate Mean</button>
+            </form>
+        </div>
+<br> <!-- Card 2: Fill with Custom Value -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🛠 Missing Value Replacement</h4>
+                <label>Column Name:</label>
+                <input type="text" name="Full_Columns" placeholder="e.g. Status" required>
+                <label>Value to Fill:</label>
+                <input type="text" name="Custom_Value" placeholder="e.g. Unknown" required>
+                <button type="submit">Apply Fill</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 3: Fill with Mean -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>📊 Mean Imputation</h4>
+                <label>Column Name:</label>
+                <input type="text" name="Fill_with_mean" placeholder="e.g. Age" required>
+                <button type="submit" style="margin-top: 20px;">Calculate Mean</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 4: Fill Specific Number -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🔢 Numeric Value Imputation</h4>
+                <label>Column Name:</label>
+                <input type="text" name="Fill_Numbers" placeholder="e.g. Score" required>
+                <label>Value:</label>
+                <input type="number" name="Custom_Num_Value" placeholder="e.g. 0" required>
+                <button type="submit">Fill Value</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 5: Drop Rows with NaNs -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🗑 Remove Incomplete Records</h4>
+                <label>Target Column:</label>
+                <input type="text" name="Drop" placeholder="e.g. Department" required>
+                <button type="submit" class="btn-danger" style="margin-top: 20px;">Drop Rows</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 6: Drop Entire Column -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>✂️ Column Removal Tool</h4>
+                <label>Column Name to Delete:</label>
+                <input type="text" name="Drop_col" placeholder="e.g. Unnamed: 0" required>
+                <button type="submit" class="btn-danger" style="margin-top: 20px;">Drop Column</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 7: Convert Type to Numeric -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🔄 Numeric Type Conversion</h4>
+                <label>Force Column to Numeric:</label>
+                <input type="text" name="tonumaric" placeholder="e.g. Salary" required>
+                <button type="submit" class="btn-info" style="margin-top: 20px;">Convert to Numeric</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 8: Convert Type to DateTime -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>📅 Date & Time Conversion</h4>
+                <label>Force Column to Date:</label>
+                <input type="text" name="DateTime" placeholder="e.g. Date" required>
+                <button type="submit" class="btn-info" style="margin-top: 20px;">Convert to Date</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 9: Check Unique Values -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>🔍 Unique Value Explorer</h4>
+                <label>Target Column:</label>
+                <input type="text" name="UniqueValues" placeholder="e.g. Department" required>
+                <button type="submit" class="btn-purple" style="margin-top: 20px;">Show Unique</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 10: Count Unique Values -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>📈 Frequency Distribution Analysis</h4>
+                <label>Target Column:</label>
+                <input type="text" name="Count_Unique_Val" placeholder="e.g. Role" required>
+                <button type="submit" class="btn-purple" style="margin-top: 20px;">Count Values</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 11: Rename Columns -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/" method="POST">
+                <h4>📝 Column Renaming Tool</h4>
+                <label>Old Column Name:</label>
+                <input type="text" name="Rename_Column" placeholder="e.g. old_name" required>
+                <label>New Column Name:</label>
+                <input type="text" name="New_Column" placeholder="e.g. new_name" required>
+                <button type="submit">Rename</button>
+            </form>
+        </div>
+<br>
+        <!-- Card 12: Groupby and Plot -->
+        <div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+            <form action="/Plot" method="POST">
+                <h4>📊 Data Aggregation & Visualization</h4>
+                <label>Column Name 1:</label>
+                <input type="text" name="First" placeholder="e.g. Col_Name1 " >
+                <label>Column Name 2:</label>
+                <input type="text" name="Second" placeholder="e.g. Col_Name2" >
+                
+                <label>Tital</label>
+                <input type="text" name="Tital" placeholder="e.g. title" >
+                <label>Choose Condition Option:</label>
+        <select name="Options1" style="width: 100%; padding: 8px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background: white;">
+            <option value="bar">Bar</option>
+            <option value="line">Line</option>
+            <option value="area">Area</option>
+            <option value="pie">Pie</option>
+            <option value="hist">Histogram</option>
+            <option value="scatter">scatter</option>
+            <option value="boxplot">boxplot</option>
+            <option value="heatmap">heatmap</option>
+            <option value="CountPlot">Count Plot</option>
+
+        </select>
+                <button type="submit">Apply Fill</button>
+            </form>
+        </div>
+
+<br>
+        <!-- Card 13: Filter Data Row Query -->
+        
+<div class="horizontal-row-card" style="border-left: 5px solid #27ae60;">
+    <form action="/" method="POST">
+        <h4>🎯 Advanced Data Filtering</h4>
+        
+        <label>Column Name:</label>
+        <input type="text" name="Filters_Data1" placeholder="e.g. Age" required>
+        
+        <!-- NEW FEATURE: Comparison Operator Dropdown Picker Selection Box -->
+        <label>Choose Condition Operator:</label>
+        <select name="Operator_Choice" style="width: 100%; padding: 8px; margin: 5px 0 15px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; background: white;">
+            <option value="==">Matches Text / Equals (==)</option>
+            <option value="<">Less Than (&lt;)</option>
+            <option value=">">Greater Than (&gt;)</option>
+        </select>
+        
+        <label>Value:</label>
+        <input type="text" name="InputNumber" placeholder="e.g. 30" required>
+        
+        <button type="submit" class="btn-upload">Apply Filter</button>
+    </form>
+</div>
+    </div>
+
+
+    <div class="table-section">
+    {% if master_table %}
+        <!-- New Layout Panel for Custom File Saving -->
+        <div style="background: #ebf5fb; padding: 15px; border-radius: 8px; border: 1px solid #aed6f1; margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-grow: 1;">
+                <label style="margin: 0; font-size: 14px; white-space: nowrap;">💾 Save File As:</label>
+                <!-- Form targeting the new POST download route -->
+                <form action="/download" method="POST" style="margin: 0; display: flex; gap: 10px; width: 100%; max-width: 500px;">
+                    <input type="text" name="filename_input" placeholder="e.g. final_report" style="margin: 0; padding: 8px;" required>
+                    <button type="submit" style="background: #27ae60; width: auto; font-size: 14px; padding: 10px 20px; white-space: nowrap;">
+                        📥 Export Cleaned Dataset
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <h3>📋 Current Master Dataset Preview (Live Updates)</h3>
+        <div class="table-container">
+            {{ master_table | safe }}
+        </div>
+    {% else %}
+        <p style="color: #777; font-style: italic;">No active data found. Use the file picker above to load a dataset.</p>
+    {% endif %}
+</div>
+
+
+</body>
+</html>
+

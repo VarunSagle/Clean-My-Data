@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 30px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            color: #333; 
+            margin-top: 0;
+            margin-bottom: 20px; 
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        /* HORIZONTAL BOXES STRUCTURE */
+        .horizontal-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: flex-end;
+            background: #fafafa;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 40px;
+            font-size: 14px;
+            background-color: white;
+        }
+        .btn-submit {
+            height: 40px;
+            padding: 0 25px;
+            border: none;
+            background: #27ae60;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s ease;
+        }
+        .btn-submit:hover { 
+            background: #219653; 
+        }
+        
+        /* OUTPUT RESULTS AREA */
+        .output-container {
+            margin-top: 30px;
+            text-align: center;
+            background: #fafafa;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .chart-img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background: white;
+            padding: 10px;
+            box-shadow: 0px 2px 5px rgba(0,0,0,0.05);
+        }
+        .btn-download {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .btn-download:hover { 
+            background-color: #0069d9; 
+        }
+        
+        /* BACK LINK STYLING */
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #555;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .btn-back:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Generate Bar Chart</h2>
+
+    <a href="/" class="btn-back">⬅️ Back to Dashboard</a>
+
+    <!-- 1. FIXED: Added the dynamic error display box for this page -->
+    {% if errors %}
+        <div style="background: #fde8e8; border-left: 5px solid #e74c3c; color: #c0392b; padding: 12px; margin-bottom: 20px; border-radius: 4px; font-weight: bold; font-size: 14px; text-align: left;">
+            ⚠️ {{ errors }}
+        </div>
+    {% endif %}
+
+    <!-- Your horizontal form goes here -->
+    <form action="" method="POST" class="horizontal-form">
+        <!-- ... your inputs for first, second, Options1 ... -->
+    </form>
+
+    <!-- Visual Output Area (Displays below the horizontal configuration bar) -->
+    {% if graph_url %}
+        <div class="output-container">
+            <h3>Output Result:</h3>
+            <img class="chart-img" src="{{ graph_url }}" alt="Generated Chart">
+            <br>
+            <a href="{{ graph_url }}" download="analytics_chart.png" class="btn-download">
+                💾 Save/Download Graph Image
+            </a>
+        </div>
+    {% endif %}
+</div>
+
+
+</body>
+</html>
