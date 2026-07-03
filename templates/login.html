@@ -3,7 +3,6 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Login | Clean My Data</title>
@@ -12,52 +11,107 @@
 
 <style>
 
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-
-background:#eef2f7;
-
-height:100vh;
-
-display:flex;
-
-justify-content:center;
-
-align-items:center;
-
+    background:linear-gradient(135deg,#eef4ff,#d9e8ff);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .card{
+    width:430px;
+    border:none;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.15);
+    transition:.3s;
+}
 
-width:420px;
-
-border:none;
-
-border-radius:12px;
-
-box-shadow:0 10px 25px rgba(0,0,0,.1);
-
+.card:hover{
+    transform:translateY(-4px);
 }
 
 .card-header{
+    background:#0d6efd;
+    color:white;
+    text-align:center;
+    padding:25px;
+}
 
-background:#0d6efd;
+.card-header h2{
+    margin-bottom:5px;
+    font-weight:bold;
+}
 
-color:white;
+.card-header p{
+    margin:0;
+    opacity:.9;
+    font-size:15px;
+}
 
-text-align:center;
+.card-body{
+    padding:35px;
+}
 
-font-size:28px;
+.form-label{
+    font-weight:600;
+    color:#555;
+}
 
-font-weight:bold;
+.form-control{
+    border-radius:10px;
+    padding:12px;
+}
 
-padding:20px;
-
+.form-control:focus{
+    box-shadow:0 0 0 .2rem rgba(13,110,253,.2);
 }
 
 .btn-primary{
+    width:100%;
+    border-radius:10px;
+    padding:12px;
+    font-size:17px;
+    font-weight:bold;
+}
 
-width:100%;
+.btn-primary:hover{
+    transform:translateY(-2px);
+}
 
+.error-box{
+    background:#fdecea;
+    color:#b71c1c;
+    border-left:5px solid #dc3545;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.footer-text{
+    text-align:center;
+    color:#666;
+    margin-top:20px;
+    font-size:14px;
+}
+
+.footer-text a{
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.logo{
+    font-size:55px;
+    margin-bottom:10px;
 }
 
 </style>
@@ -68,63 +122,62 @@ width:100%;
 
 <div class="card">
 
-<div class="card-header">
+    <div class="card-header">
 
-Login
+        <div class="logo">📊</div>
 
-</div>
+        <h2>Clean My Data</h2>
 
-<div class="card-body">
+        <p>Sign in to access your dashboard</p>
 
-<form method="POST">
+    </div>
 
-<div class="mb-3">
+    <div class="card-body">
 
-<label>Email</label>
+        {% if error %}
+        <div class="error-box">
+            {{ error }}
+        </div>
+        {% endif %}
 
-<input
-type="email"
-class="form-control"
-name="email"
-required>
+        <form method="POST">
 
-</div>
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    placeholder="Enter your email"
+                    required>
+            </div>
 
-<div class="mb-3">
+            <div class="mb-4">
+                <label class="form-label">Password</label>
+                <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    placeholder="Enter your password"
+                    required>
+            </div>
 
-<label>Password</label>
+            <button type="submit" class="btn btn-primary">
+                🔑 Login
+            </button>
 
-<input
-type="password"
-class="form-control"
-name="password"
-required>
+        </form>
 
-</div>
+        <hr>
 
-<button class="btn btn-primary">
+        <p class="footer-text">
+            Don't have an account?
+            <a href="{{ url_for('auth.register') }}">
+                Create Account
+            </a>
+        </p>
 
-Login
-
-</button>
-
-</form>
-
-<hr>
-
-<p class="text-center">
-
-Don't have an account?
-
-<a href="{{ url_for('auth.register' ) }}">
-
-Register
-
-</a>
-
-</p>
-
-</div>
+    </div>
 
 </div>
 
