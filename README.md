@@ -128,6 +128,7 @@ Now RUN the app:  python app.py
 5. Database Setup
 
 -----Make sure services is running-----
+If theserver is not running you got thia error:  mysql.connector.errors.DatabaseError: 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
 
 CREATE DATABASE cleanmydata;
 
