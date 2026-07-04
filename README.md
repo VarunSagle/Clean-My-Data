@@ -160,3 +160,12 @@ select * from users;
 
 6. You can see the Logs in your browser
 http://127.0.0.1:5000/logs
+
+
+
+
+
+
+<img width="400" height="600" alt="Create Account" src="https://github.com/user-attachments/assets/443d61f5-3c9b-4b1b-b129-cb31309ad678" />
+
+
