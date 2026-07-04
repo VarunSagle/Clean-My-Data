@@ -37,6 +37,7 @@ def register():
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    error=None
     if request.method == "POST":
 
         email = request.form["email"]
