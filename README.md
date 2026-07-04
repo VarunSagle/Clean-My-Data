@@ -165,7 +165,26 @@ http://127.0.0.1:5000/logs
 
 
 
+# Register And Login Page                                                                                                                                 
+<img width="400" height="600" alt="Create Account" src="https://github.com/user-attachments/assets/443d61f5-3c9b-4b1b-b129-cb31309ad678" />     
+<img width="400" height="600" alt="Screenshot 2026-07-04 140656" src="https://github.com/user-attachments/assets/553bef46-4a4d-461a-b8fc-9d2755183aa7" /> </br>
 
-<img width="400" height="600" alt="Create Account" src="https://github.com/user-attachments/assets/443d61f5-3c9b-4b1b-b129-cb31309ad678" />
+# Dashboard
+<img width="1890" height="860" alt="Screenshot 2026-07-04 140752" src="https://github.com/user-attachments/assets/515ff651-506e-4029-a705-778e1a32a859" />
+<img width="1871" height="727" alt="Screenshot 2026-07-04 140852" src="https://github.com/user-attachments/assets/e75de709-46f3-4830-ab90-8237c4b1f4fd" />
+<img width="1882" height="862" alt="Screenshot 2026-07-04 140930" src="https://github.com/user-attachments/assets/2a6407f1-2ac8-49ca-a27a-aa683269c1bb" />
+<img width="1885" height="866" alt="Screenshot 2026-07-04 141350" src="https://github.com/user-attachments/assets/b6284e80-78d9-4ab3-bb36-983ffb45213f" />
+<img width="1882" height="722" alt="Screenshot 2026-07-04 141429" src="https://github.com/user-attachments/assets/c2425614-56da-4adb-8fea-7ab289ba0a64" /></br>
+
+# Visualization Page
+<img width="1607" height="833" alt="Screenshot 2026-07-04 141415" src="https://github.com/user-attachments/assets/1e61c6fc-7888-4d95-8c34-82df8844134c" /></br>
+
+# Activity Logs
+
+<img width="1626" height="802" alt="Screenshot 2026-07-04 141530" src="https://github.com/user-attachments/assets/bb2334af-6836-42a2-bd0f-4ce8e71c56bb" />
+
+
+
+
 
 
